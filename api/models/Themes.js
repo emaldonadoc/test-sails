@@ -8,8 +8,11 @@
 module.exports = {
 
   attributes: {
-    name:{type:'string',required:true},
-    lastname:{type:'string',required:true,notNull:true},
-    phone:{type:'string'}
+    id: {
+      primaryKey: true,
+      autoIncrement: true,
+      type: 'integer'
+    },
+    theme:{type:'string',required:true}
   }
 };

@@ -1,8 +1,8 @@
 {
-  "name": "myApp",
+  "name": "searchMonographs",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "A Sails application to find monographs",
   "keywords": [],
   "dependencies": {
     "sails": "~0.11.0",
