@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
     id: {primaryKey: true,autoIncrement: true,type: 'integer'},
     position:{type:'integer',required:true},
-    num:{type:'integer', default:0},
+    num:{type:'integer', defaultsTo:0},
     title:{type:'string',required:true},
 
     theme_id:{
