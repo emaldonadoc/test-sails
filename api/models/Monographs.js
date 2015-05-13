@@ -13,6 +13,7 @@ module.exports = {
     num:{type:'integer', defaultsTo:0},
     title:{type:'string',required:true},
 
+    // Relationship with others tables
     theme_id:{
       model:'themes',
       required:true

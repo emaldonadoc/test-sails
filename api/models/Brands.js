@@ -8,6 +8,10 @@ module.exports = {
       autoIncrement: true,
       type: 'integer'
     },
-    name:{type:'string',required:true},
+    name:{
+      type:'string',
+      enum:['SunRice', 'Raf', 'El Sol'],
+      required:true
+    }
   }
 };
