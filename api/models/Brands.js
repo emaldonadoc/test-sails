@@ -11,6 +11,7 @@ module.exports = {
     name:{
       type:'string',
       enum:['SunRice', 'Raf', 'El Sol'],
+      defaultsTo: 'SunRice',
       required:true
     }
   }

@@ -35,7 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  
+
   'GET /hello': 'HelloController.hi'
 
   /***************************************************************************

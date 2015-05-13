@@ -10,8 +10,13 @@
  */
 
 module.exports.bootstrap = function(cb) {
+  var brands = [{name:'SunRice'},{name:'Raf'},{name:'El Sol'}];
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
-  cb();
+  Brands.count().exec(function(error, count){
+    if(count > 0) return cb();
+    sails.log("Generating brands", count);
+    Brands.create(brands).exec(cb);
+  });
+
+  //cb();
 };
