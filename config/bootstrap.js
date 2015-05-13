@@ -13,10 +13,11 @@ module.exports.bootstrap = function(cb) {
   var brands = [{name:'SunRice'},{name:'Raf'},{name:'El Sol'}];
 
   Brands.count().exec(function(error, count){
-    if(count > 0) return cb();
-    sails.log("Generating brands", count);
-    Brands.create(brands).exec(cb);
+    if(count <= 0) {
+      sails.log("Generating brands...");
+      Brands.create(brands).exec(cb);
+    }
   });
 
-  //cb();
+  cb();
 };
