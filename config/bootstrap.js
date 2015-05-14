@@ -21,5 +21,19 @@ module.exports.bootstrap = function(cb) {
     }
   });
 
+
+  var themes = [{theme:'hitler y los anticonceptivos modernos'},{theme:'vida extaterrestre en bandas punk'},{theme:'El papa y su influencia en el porno actual'}];
+
+  Themes.count().exec(function(error, count){
+    if(count <= 0) {
+      sails.log("Generating themes...");
+      Themes.create(themes).exec(cb);
+    }else{
+      return cb();
+    }
+  });
+
+
+
   //cb();
 };
