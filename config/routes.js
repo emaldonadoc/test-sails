@@ -35,9 +35,9 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'GET /listMonographs': 'MonographsController.list',
-  'GET /themes': 'ThemesController.list'
 
+  'GET /themes': 'ThemesController.list',
+  'GET /monographs': 'MonographsController.list'
 
   /***************************************************************************
   *                                                                          *
