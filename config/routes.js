@@ -37,6 +37,9 @@ module.exports.routes = {
   },
   'GET /listMonographs': 'MonographsController.list'
 
+  'GET /themes': 'ThemesController.list'
+
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
