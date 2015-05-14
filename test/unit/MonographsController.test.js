@@ -21,7 +21,6 @@ describe("Monograph Controller Test", function(){
      .expect(400)
      .end(function(err, resp){
        if (err) return done(err);
-       //console.log(resp);
        expect(resp.text).to.equals("Bad Request");
        done();
      });
