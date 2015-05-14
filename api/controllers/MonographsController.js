@@ -1,9 +1,13 @@
+//var MonographService = require('../services/MonographsService');
 
 module.exports = {
   list: function (req, res) {
-    return res.send("Hola jotin");
-  },
-  insert: function (req, res) {
-    return res.redirect("http://www.sayonara.com");
+    Brands.query('Select name from brands', function(err, result){
+     if(err)
+       throw new Error('something bad happened');
+
+       return res.json({brands:result});
+    });
+    //return res.send("Monograph controller , " + data);
   }
 };
