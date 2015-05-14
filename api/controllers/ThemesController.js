@@ -1,11 +1,11 @@
-var ThemeController = {
-
+module.exports = {
   list: function (req, res) {
-   Theme.findAll(function(err, themes){
-     if (err)
-      return res.send(err, 500);
-    return res.json({Themes:themes});
-	});
+    Themes.query('Select theme from themes', function(err, result){
+     if(err)
+       throw new Error('something bad happened');
+
+       return res.json({themes:result});
+    });
   }
 };
-module.exports = ThemeController;
+
