@@ -1,6 +1,6 @@
 require("sails-test-helper");
 
-describe("Monograph Controller Test", function(){
+describe.only("Monograph Controller Test", function(){
 
  describe("GET list", function(){
   it("Should be successful", function(done){
@@ -28,13 +28,24 @@ describe("Monograph Controller Test", function(){
 
    it("Save monograph",function(done){
      var monograph2save={
-       
+       position: 22,
+       title:"Test monograph",
+       theme_id: 1,
+       brand_id:2,
+       num:22
      };
-     request.post(service).send()
+
+     request.post(service).send(monograph2save)
      .expect(200).end(function(err, resp){
        expect(err).to.not.exist;
+       done();
      });
 
+     Monographs.find({title:"Test monograph"})
+       .exec(function(result){
+         console.log("FIND REQUEST   ", result);
+         done();
+       });
    });
 
  });
