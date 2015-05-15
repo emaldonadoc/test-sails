@@ -14,18 +14,14 @@ describe("Monograph Controller Test", function(){
   });
  });
 
- describe("PUT monograph",function(){
-   it("Save monograph in DB", function(done){
-     request.put({
-       url:"/monographs/save",
-       headers:{
-         'Content-Type': 'application/json'
-       }
-     })
-     .expect(200)
-     .end(function(err, resp, body){
+ describe("POST monograph",function(){
+
+   it("No save monograph by BAD REQUEST", function(done){
+     request.post("/monographs").send({body:"params"})
+     .expect(400)
+     .end(function(err, resp){
        if (err) return done(err);
-       console.log(resp.statusCode, body);
+       expect(resp.text).to.equals("Bad Request");
        done();
      });
    });

@@ -37,7 +37,8 @@ module.exports.routes = {
   },
 
   'GET /themes': 'ThemesController.list',
-  'GET /monographs': 'MonographsController.list'
+  'GET /monographs': 'MonographsController.list',
+  'POST /monographs': 'MonographsController.save'
 
   /***************************************************************************
   *                                                                          *
