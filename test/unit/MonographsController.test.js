@@ -15,15 +15,26 @@ describe("Monograph Controller Test", function(){
  });
 
  describe("POST monograph",function(){
-
+   var service = "/monographs/save";
    it("No save monograph by BAD REQUEST", function(done){
-     request.post("/monographs/save").send({body:"params"})
+     request.post(service).send({body:"params"})
      .expect(400)
      .end(function(err, resp){
-       if (err) return done(err);
+       expect(err).to.not.exist;
        expect(resp.text).to.equals("Bad Request");
        done();
      });
+   });
+
+   it("Save monograph",function(done){
+     var monograph2save={
+       
+     };
+     request.post(service).send()
+     .expect(200).end(function(err, resp){
+       expect(err).to.not.exist;
+     });
+
    });
 
  });
