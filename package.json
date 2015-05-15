@@ -1,16 +1,11 @@
 {
-  "name": "myApp",
+  "name": "searchMonographs",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "A Sails application to find monographs",
   "keywords": [],
-  "dependencies": {
-    "sails": "~0.11.0",
-    "sails-disk": "~0.10.0",
-    "rc": "~0.5.0",
-    "include-all": "~0.1.3",
-    "ejs": "~0.8.4",
-    "grunt": "0.4.2",
+  "devDependencies": {
+    "sails-test-helper": "*" ,
     "grunt-sync": "~0.0.4",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-clean": "~0.5.0",
@@ -23,6 +18,15 @@
     "grunt-contrib-less": "0.11.1",
     "grunt-contrib-coffee": "~0.10.1"
   },
+  "dependencies": {
+    "sails": "~0.11.0",
+    "sails-mysql": "*",
+    "sails-disk": "~0.10.0",
+    "rc": "~0.5.0",
+    "include-all": "~0.1.3",
+    "ejs": "~0.8.4",
+    "grunt": "0.4.2"
+  },
   "scripts": {
     "start": "node app.js",
     "debug": "node debug app.js"
@@ -33,5 +37,5 @@
     "url": "git://github.com/emmanuelmaldonado/myApp.git"
   },
   "author": "emmanuelmaldonado",
-  "license": ""
+  "license": "open"
 }
