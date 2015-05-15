@@ -8,32 +8,38 @@
  * For more information on bootstrapping your app, check out:
  * http://sailsjs.org/#/documentation/reference/sails.config/sails.config.bootstrap.html
  */
+var async = require('async');
+
 
 module.exports.bootstrap = function(cb) {
-  var brands = [{name:'SunRice'},{name:'Raf'},{name:'El Sol'}];
 
-  Brands.count().exec(function(error, count){
-    if(count <= 0) {
-      sails.log("Generating brands...");
-      Brands.create(brands).exec(cb);
-    }else{
-      return cb();
-    }
-  });
+  function createBrands(done) {
+    var brands = [{name:'SunRice'},{name:'Raf'},{name:'El Sol'}];
+    Brands.count().exec(function(error, count){
+      if (error) return done(error);
 
+      if(count > 0) { return done(error);
+        sails.log("Generating brands...");
+        Brands.create(brands).exec(done);
+      }
+    });
+  }
 
-  var themes = [{theme:'hitler y los anticonceptivos modernos'},{theme:'vida extaterrestre en bandas punk'},{theme:'El papa y su influencia en el porno actual'}];
+  function createThemes(done){
+    var themes = [{name:'ambiente', description:'tema ambiental'},
+      {name:'politica', description:'tema politico'}];
 
-  Themes.count().exec(function(error, count){
-    if(count <= 0) {
+    Themes.count().exec(function(error, count){
+      if (error) return done(error);
+      if (count > 0) return done();
       sails.log("Generating themes...");
-      Themes.create(themes).exec(cb);
-    }else{
-      return cb();
-    }
-  });
+      Themes.create(themes).exec(done);
+    });
+  }
 
+  async.parallel([
+    createBrands,
+    createThemes
+  ], cb);
 
-
-  //cb();
 };
