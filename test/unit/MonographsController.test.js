@@ -17,7 +17,7 @@ describe("Monograph Controller Test", function(){
  describe("POST monograph",function(){
 
    it("No save monograph by BAD REQUEST", function(done){
-     request.post("/monographs/save").send({body:"params"})
+     request.post("/monographs").send({body:"params"})
      .expect(400)
      .end(function(err, resp){
        if (err) return done(err);

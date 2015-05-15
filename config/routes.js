@@ -36,8 +36,8 @@ module.exports.routes = {
     view: 'homepage'
   },
 
-  'GET /monographs': 'MonographsController.list',
-  'POST /monographs/save': 'MonographsController.save'
+  'GET  /monographs': 'MonographsController.list',
+  'POST /monographs': 'MonographsController.save'
 
   /***************************************************************************
   *                                                                          *
