@@ -28,24 +28,25 @@ describe.only("Monograph Controller Test", function(){
 
    it("Save monograph",function(done){
      var monograph2save={
-       position: 22,
+       position: 1,
        title:"Test monograph",
        theme_id: 1,
        brand_id:2,
-       num:22
+       num:1
      };
-
      request.post(service).send(monograph2save)
-     .expect(200).end(function(err, resp){
+     .expect(210)
+     .end(function(err, resp){
        expect(err).to.not.exist;
+       var body = resp.body;
+       expect(body).to.exist;
+       expect(body.position).to.equal(monograph2save.position);
+       expect(body.title).to.equal(monograph2save.title);
+       expect(body.theme_id).to.equal(monograph2save.theme_id);
+       expect(body.brand_id).to.equal(monograph2save.brand_id);
        done();
      });
 
-     Monographs.find({title:"Test monograph"})
-       .exec(function(result){
-         console.log("FIND REQUEST   ", result);
-         done();
-       });
    });
 
  });
