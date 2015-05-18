@@ -17,7 +17,7 @@ describe.only("Monograph Controller Test", function(){
  describe("POST monograph",function(){
    after(function(done){
      console.log("CLEAN DUMMY TEST DATA");
-     Monographs.query('delete from monograph.monographs where id >= 0;');
+     Monographs.query("delete from monograph.monographs where title='Test monograph';");
      done();
    });
 

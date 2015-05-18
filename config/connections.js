@@ -48,6 +48,15 @@ module.exports.connections = {
     database: 'monograph'
   },
 
+
+  MysqlServerTest: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'monograph_test'
+  },
+
   /***************************************************************************
   *                                                                          *
   * MongoDB is the leading NoSQL database.                                   *
