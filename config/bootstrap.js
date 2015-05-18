@@ -15,12 +15,16 @@ module.exports.bootstrap = function(cb) {
   Brands.count().exec(function(error, count){
     if(count <= 0) {
       sails.log("Generating brands...");
-      Brands.create(brands).exec(cb);
+      Brands.create(brands).exec();
     }
   });
 
 
-  var themes = [{theme:'hitler y los anticonceptivos modernos'},{theme:'vida extaterrestre en bandas punk'},{theme:'El papa y su influencia en el porno actual'}];
+  var themes = [
+    {theme:'hitler y los anticonceptivos modernos'},
+    {theme:'vida extaterrestre en bandas punk'},
+    {theme:'El papa y su influencia en el porno actual'}
+  ];
 
   Themes.count().exec(function(error, count){
     if(count <= 0) {
