@@ -55,7 +55,7 @@ module.exports.connections = {
     user: 'root',
     password: '',
     database: 'monograph_test'
-  },
+  }
 
   /***************************************************************************
   *                                                                          *
