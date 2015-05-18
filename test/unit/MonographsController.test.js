@@ -15,6 +15,12 @@ describe.only("Monograph Controller Test", function(){
  });
 
  describe("POST monograph",function(){
+   after(function(done){
+     console.log("CLEAN DUMMY TEST DATA");
+     Monographs.query('delete from monograph.monographs where id >= 0;');
+     done();
+   });
+
    var service = "/monographs/save";
    it("No save monograph by BAD REQUEST", function(done){
      request.post(service).send({body:"params"})
