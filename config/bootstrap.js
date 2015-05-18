@@ -15,7 +15,7 @@ module.exports.bootstrap = function(cb) {
   Brands.count().exec(function(error, count){
     if(count <= 0) {
       sails.log("Generating brands...");
-      Brands.create(brands).exec();
+      Brands.create(brands).exec(cb);
     }
   });
 
