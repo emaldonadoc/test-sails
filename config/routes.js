@@ -38,7 +38,8 @@ module.exports.routes = {
 
   'GET /themes': 'ThemesController.list',
   'GET /monographs': 'MonographsController.list',
-  'POST /monographs': 'MonographsController.save'
+  'POST /monographs': 'MonographsController.save',
+  'PUT /monographs/:id' : 'MonographsController.edit'
 
   /***************************************************************************
   *                                                                          *

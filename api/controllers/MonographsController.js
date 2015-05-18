@@ -17,10 +17,14 @@ module.exports = {
    }
    saveValidMonograph(req.body, function(err, created){
      if(err) return new Error("Can't save Monograph ",err)
-     res.statusCode = 210;
+     res.statusCode = 201;
      return res.json(created);
    });
-  }
+ },
+
+ edit: function(req,res){
+
+ }
 
 };
 
