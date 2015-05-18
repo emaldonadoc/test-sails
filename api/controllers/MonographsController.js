@@ -15,14 +15,22 @@ module.exports = {
     res.statusCode= 400;
     return res.end(body);
    }
-
-   return res.json({});
+   saveValidMonograph(req.body, function(err, created){
+     if(err) return new Error("Can't save Monograph ",err)
+     res.statusCode = 210;
+     return res.json(created);
+   });
   }
 
 };
 
-
 function isValidMonograph(data){
   return (data.position && data.title && data.theme_id && data.brand_id);
+}
 
+function saveValidMonograph(data, callback){
+  Monographs.create(data).exec(function(err,created){
+    if(err) return callback(err);
+    callback(null,created);
+  });
 }

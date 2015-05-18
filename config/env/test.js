@@ -1,5 +1,5 @@
 /**
- * Development environment settings
+ * Test environment settings
  *
  * This file can include shared settings for a development team,
  * such as API keys or remote database passwords.  If you're using
@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-     connection: 'MysqlServer'
+     connection: 'MysqlServerTest'
    }
 
 };
