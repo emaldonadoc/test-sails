@@ -1,6 +1,6 @@
 require("sails-test-helper");
 
-describe.only("Monograph Controller Test", function(){
+describe("Monograph Controller Test", function(){
 
  describe("GET Monographs list", function(){
   it("Should be successful", function(done){
