@@ -8,7 +8,6 @@ describe.only("Themes Controller Test", function(){
       .expect(200)
       .end(done);
   });
-
-
  });
+
 });
