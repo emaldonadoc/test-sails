@@ -6,7 +6,11 @@ describe("Themes Controller Test", function(){
   it("Should be successful", function(done){
     request.get("/themes")
       .expect(200)
-      .end(done);
+      .end(function(err, res) {
+        if (err) return done(err);
+        expect(res.body).to.have.property('themes').a('array');
+        done();
+      })
   });
  });
 
