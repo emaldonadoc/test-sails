@@ -14,16 +14,12 @@ describe("Themes Controller Test", function(){
    it("No save theme by BAD REQUEST", function(done){
      request.post("/themes").send({body:"params"})
      .expect(400)
-     .end(function(err, resp){
-       if (err) return done(err);
-       expect(resp.text).to.equals("Bad Request");
-       done();
+       .end(function(err, resp){
+        if (err) return done(err);
+         expect(resp.text).to.equals("Bad Request");
+         done();
+       });
      });
    });
-
- });
-
-  
-
  });
 });
