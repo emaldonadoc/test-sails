@@ -21,7 +21,7 @@ describe("Monograph Controller Test", function(){
      done();
    });
 
-   var service = "/monographs/save";
+   var service = "/monographs";
    it("No save monograph by BAD REQUEST", function(done){
      request.post(service).send({body:"params"})
      .expect(400)

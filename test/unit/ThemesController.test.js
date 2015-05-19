@@ -25,6 +25,26 @@ describe("Themes Controller Test", function(){
          });
        });
 
+     it("Save theme",function(done){
+       var themeRequest={
+         name: "test",
+         description:"test description"
+       };
+       request.post("/themes").send(themeRequest)
+         .expect(210)
+         .end(function(err, resp){
+           expect(err).to.not.exist;
+           var body = resp.body;
+           expect(body).to.exist;
+           expect(body.name).to.equal(themeRequest.name);
+           expect(body.description).to.equal(themeRequest.description);
+           done();
+         });
+
+     });
+
    });
+
+
 
 });
