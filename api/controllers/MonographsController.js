@@ -23,7 +23,13 @@ module.exports = {
  },
 
  edit: function(req,res){
+  if( isNaN(req.param('id')) ){
+    var body ="Bad request, send monograph id ";
+    res.statusCode =400;
+    return res.end(body);
+  }
 
+  return res.json({});
  }
 
 };
@@ -37,4 +43,8 @@ function saveValidMonograph(data, callback){
     if(err) return callback(err);
     callback(null,created);
   });
+}
+
+function editMonographById(id,data, callback){
+
 }

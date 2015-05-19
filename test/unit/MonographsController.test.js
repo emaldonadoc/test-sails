@@ -16,7 +16,6 @@ describe("Monograph Controller Test", function(){
 
  describe("POST monograph",function(){
    after(function(done){
-     console.log("Clean dummy test data");
      Monographs.query("delete from monograph_test.monographs where id>=0;");
      done();
    });
@@ -61,6 +60,7 @@ describe("Monograph Controller Test", function(){
    var id2Update =0;
    before(function(done){
      var data ={
+       id:99999,
        position: 1,
        title:"ToUpdate",
        theme_id: 1,
@@ -70,24 +70,34 @@ describe("Monograph Controller Test", function(){
      console.log("Saving Monograph to Edit");
      Monographs.create(data,function(err,result){
       if(err) return done(err);
-      id2Update = result.id;
       done();
      });
    });
 
    after(function(done){
      console.log("Clean Monograph to edit");
-     Monographs.destroy({id:id2Update}).exec(function(err,monograph){
+     Monographs.destroy({id:99999}).exec(function(err,monograph){
        if(err) return done(err);
        done();
      });
    });
 
+   it("Cant update monograph by bad request", function(done){
+     request.put('/monographs/id').send({position:33})
+     .expect(400)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equals("Bad request, send monograph id ");
+       done();
+     });
+   });
+
    it("Update monograph",function(done){
-     request.put('/monograps/'+id2Update).send({position:2,theme_id:2,num:666})
+     request.put('/monographs/99999').send({position:2,theme_id:2,num:666})
      .expect(200)
      .end(function(err, resp){
        expect(err).to.not.exist;
+       done();
      });
 
    })
