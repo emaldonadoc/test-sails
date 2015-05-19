@@ -57,7 +57,6 @@ describe("Monograph Controller Test", function(){
  });
 
  describe('PUT Update',function(){
-   var id2Update =0;
    before(function(done){
      var data ={
        id:99999,
