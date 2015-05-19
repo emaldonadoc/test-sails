@@ -89,16 +89,12 @@ describe("Monograph Controller Test", function(){
      });
    });
 
-   it("Update monograph successful",function(done){
-     var data2Update = {position:2,theme_id:2,num:666};
-     request.put('/monograph/99999').send(data2Update)
-     .expect(201)
+   it("Cant update monograph with no data to update",function(done){
+     request.put('/monograph/99999').send({none:""})
+     .expect(400)
      .end(function(err, resp){
        expect(err).to.not.exist;
-       var updated = resp.body[0];
-       expect(updated.position).to.equal(data2Update.position);
-       expect(updated.theme_id).to.equal(data2Update.theme_id);
-       expect(updated.num).to.equal(data2Update.num);
+       expect(resp.text).to.equals("Bad request, send monograph id ");
        done();
      });
    });
@@ -110,6 +106,20 @@ describe("Monograph Controller Test", function(){
      .end(function(err, resp){
        var error = resp.error;
        expect(error.text).to.equal('"Cannot update register, does not exist"');
+       done();
+     });
+   });
+
+   it("Update monograph successful",function(done){
+     var data2Update = {position:2,theme_id:2,num:666};
+     request.put('/monograph/99999').send(data2Update)
+     .expect(201)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       var updated = resp.body[0];
+       expect(updated.position).to.equal(data2Update.position);
+       expect(updated.theme_id).to.equal(data2Update.theme_id);
+       expect(updated.num).to.equal(data2Update.num);
        done();
      });
    });

@@ -23,7 +23,9 @@ module.exports = {
  },
 
  edit: function(req,res){
-  if( isNaN(req.param('id')) ){
+  var validRequest = !(isData2UpdateValid(req.body) && !isNaN(req.param('id')));
+  console.log("valid request flag", validRequest);
+  if( validRequest ){
     var body ="Bad request, send monograph id ";
     res.statusCode =400;
     return res.end(body);
@@ -55,6 +57,16 @@ function saveValidMonograph(data, callback){
     if(err) return callback(err);
     callback(null,created);
   });
+}
+
+function isData2UpdateValid(data){
+  console.log("DATA TO VALIDATE", data ,( data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id') ) );
+  var valid= false;
+  if(data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id')){
+    console.log("Exist one valid data");
+    valid=true
+  }
+  return valid;
 }
 
 function editMonographById(id,data, callback){
