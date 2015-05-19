@@ -13,6 +13,8 @@ module.exports = {
       autoIncrement: true,
       type: 'integer'
     },
-    theme:{type:'string',required:true}
+    name:{type:'string',required:true},
+    description:{type:'string',required:false}
+
   }
 };
