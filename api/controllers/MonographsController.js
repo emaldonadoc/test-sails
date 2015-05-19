@@ -29,7 +29,19 @@ module.exports = {
     return res.end(body);
   }
 
-  return res.json({});
+  editMonographById(parseInt(req.param('id')),req.body,function(err,updated){
+    if(err) return new Errr("Cannot update register", err);
+    var status=201;
+    var body= updated;
+
+    if(updated.length <= 0){
+      status=400;
+      body='Cannot update register, does not exist'
+    }
+
+    res.statusCode = status;
+    return res.json(body);
+  });
  }
 
 };
@@ -46,5 +58,8 @@ function saveValidMonograph(data, callback){
 }
 
 function editMonographById(id,data, callback){
-
+  Monographs.update({id:id},data).exec(function(err, updated){
+    if(err) return callback(err);
+    callback(null, updated);
+  });
 }

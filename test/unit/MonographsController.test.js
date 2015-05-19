@@ -67,7 +67,6 @@ describe("Monograph Controller Test", function(){
        brand_id:2,
        num:1
      };
-     console.log("Saving Monograph to Edit");
      Monographs.create(data,function(err,result){
       if(err) return done(err);
       done();
@@ -75,7 +74,6 @@ describe("Monograph Controller Test", function(){
    });
 
    after(function(done){
-     console.log("Clean Monograph to edit");
      Monographs.destroy({id:99999}).exec(function(err,monograph){
        if(err) return done(err);
        done();
@@ -83,7 +81,7 @@ describe("Monograph Controller Test", function(){
    });
 
    it("Cant update monograph by bad request", function(done){
-     request.put('/monographs/id').send({position:33})
+     request.put('/monograph/id').send({position:33})
      .expect(400)
      .end(function(err, resp){
        expect(err).to.not.exist;
@@ -92,15 +90,30 @@ describe("Monograph Controller Test", function(){
      });
    });
 
-   it("Update monograph",function(done){
-     request.put('/monographs/99999').send({position:2,theme_id:2,num:666})
-     .expect(200)
+   it("Update monograph successful",function(done){
+     var data2Update = {position:2,theme_id:2,num:666};
+     request.put('/monograph/99999').send(data2Update)
+     .expect(201)
      .end(function(err, resp){
        expect(err).to.not.exist;
+       var updated = resp.body[0];
+       expect(updated.position).to.equal(data2Update.position);
+       expect(updated.theme_id).to.equal(data2Update.theme_id);
+       expect(updated.num).to.equal(data2Update.num);
        done();
      });
+   });
 
-   })
+   it("Try 2 update a monograph that doesnt exist",function(done){
+     var data2Update = {position:2,theme_id:2,num:666};
+     request.put('/monograph/2').send(data2Update)
+     .expect(400)
+     .end(function(err, resp){
+       var error = resp.error;
+       expect(error.text).to.equal('"Cannot update register, does not exist"');
+       done();
+     });
+   });
 
  });
 
