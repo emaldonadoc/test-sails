@@ -14,6 +14,8 @@ module.exports = {
       res.statusCode=400;
       return res.end("Bad request, send monograph id")
     }
+    res.statusCode=201;
+    res.json({});
 
   },
 

@@ -161,7 +161,7 @@ describe("Monograph Controller Test", function(){
      });
    });
 
-   it.skip("Find monograph by Id ", function(done){
+   it("Find monograph by Id ", function(done){
      request.get('/monograph/'+genMonograph.id)
      .expect(201)
      .end(function(err,resp){

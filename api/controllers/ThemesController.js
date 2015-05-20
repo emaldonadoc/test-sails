@@ -33,4 +33,3 @@ function save(data, callback) {
     callback(null, created);
   });
 }
-

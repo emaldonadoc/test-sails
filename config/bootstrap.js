@@ -17,11 +17,9 @@ module.exports.bootstrap = function(cb) {
     var brands = [{name:'SunRice'},{name:'Raf'},{name:'El Sol'}];
     Brands.count().exec(function(error, count){
       if (error) return done(error);
-
-      if(count > 0) { return done(error);
-        sails.log("Generating brands...");
-        Brands.create(brands).exec(done);
-      }
+      if(count > 0)  return done(error);
+      sails.log("Generating brands...");
+      Brands.create(brands).exec(done);
     });
   }
 
@@ -40,6 +38,6 @@ module.exports.bootstrap = function(cb) {
   async.parallel([
     createBrands,
     createThemes
-  ], cb);
+  ], cb());
 
 };
