@@ -9,6 +9,14 @@ module.exports = {
     });
   },
 
+  getOne: function(req, res){
+    if(isNaN(req.param('id'))){
+      res.statusCode=400;
+      return res.end("Bad request, send monograph id")
+    }
+
+  },
+
   save: function(req, res){
   if(!isValidMonograph(req.body)){
     var body = "Bad Request";
@@ -42,6 +50,8 @@ module.exports = {
 
 };
 
+
+//TODO get out to service file
 function isValidMonograph(data){
   return (data.position && data.title && data.theme_id && data.brand_id);
 }
