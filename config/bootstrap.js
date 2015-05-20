@@ -40,6 +40,6 @@ module.exports.bootstrap = function(cb) {
   async.parallel([
     createBrands,
     createThemes
-  ], cb);
+  ], cb());
 
 };
