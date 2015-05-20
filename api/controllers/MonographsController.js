@@ -69,7 +69,10 @@ function saveValidMonograph(data, callback){
 }
 
 function isData2UpdateValid(data){
-return (data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id'))
+return (data.hasOwnProperty('position') ||
+        data.hasOwnProperty('title') ||
+        data.hasOwnProperty('theme_id') ||
+        data.hasOwnProperty('brand_id'))
 }
 
 function editMonographById(id,data, callback){
