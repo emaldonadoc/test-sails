@@ -105,7 +105,7 @@ describe("Monograph Controller Test", function(){
      .expect(400)
      .end(function(err, resp){
        var error = resp.error;
-       expect(error.text).to.equal('"Cannot update register, does not exist"');
+       expect(error.text).to.equal('Cannot update register, does not exist');
        done();
      });
    });

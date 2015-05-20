@@ -23,9 +23,7 @@ module.exports = {
  },
 
  edit: function(req,res){
-  var validRequest = !(isData2UpdateValid(req.body) && !isNaN(req.param('id')));
-  console.log("valid request flag", validRequest);
-  if( validRequest ){
+  if( !(isData2UpdateValid(req.body) && !isNaN(req.param('id'))) ){
     var body ="Bad request, send monograph id ";
     res.statusCode =400;
     return res.end(body);
@@ -33,16 +31,12 @@ module.exports = {
 
   editMonographById(parseInt(req.param('id')),req.body,function(err,updated){
     if(err) return new Errr("Cannot update register", err);
-    var status=201;
-    var body= updated;
-
     if(updated.length <= 0){
-      status=400;
-      body='Cannot update register, does not exist'
+      res.statusCode = 400;
+      return res.end('Cannot update register, does not exist');
     }
-
-    res.statusCode = status;
-    return res.json(body);
+    res.statusCode = 201;
+    return res.json(updated);
   });
  }
 
@@ -60,13 +54,7 @@ function saveValidMonograph(data, callback){
 }
 
 function isData2UpdateValid(data){
-  console.log("DATA TO VALIDATE", data ,( data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id') ) );
-  var valid= false;
-  if(data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id')){
-    console.log("Exist one valid data");
-    valid=true
-  }
-  return valid;
+return (data.hasOwnProperty('position') || data.hasOwnProperty('title') || data.hasOwnProperty('theme_id') || data.hasOwnProperty('brand_id'))
 }
 
 function editMonographById(id,data, callback){
