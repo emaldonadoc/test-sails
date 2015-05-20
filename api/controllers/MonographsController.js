@@ -14,9 +14,12 @@ module.exports = {
       res.statusCode=400;
       return res.end("Bad request, send monograph id")
     }
-    res.statusCode=201;
-    res.json({});
 
+    getMonographById(parseInt(req.param('id')), function(err, monograph){
+     if(err) throw new Error('Something bad happend', err);
+      res.statusCode=201;
+      res.json(monograph);
+   });
   },
 
   save: function(req, res){
@@ -73,5 +76,12 @@ function editMonographById(id,data, callback){
   Monographs.update({id:id},data).exec(function(err, updated){
     if(err) return callback(err);
     callback(null, updated);
+  });
+}
+
+function getMonographById(id, callback){
+  Monographs.findOne({id:id}).populateAll().exec(function(err, monograph){
+    if(err) return callback(err,null);
+    callback(null,monograph);
   });
 }

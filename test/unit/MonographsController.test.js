@@ -131,7 +131,7 @@ describe("Monograph Controller Test", function(){
      id:1111,
      position: 999,
      title:"ToFind",
-     theme_id: 234,
+     theme_id: 1,
      brand_id:1,
      num:554
    }
@@ -169,7 +169,14 @@ describe("Monograph Controller Test", function(){
        var result = resp.body;
        expect(result.position).to.equal(genMonograph.position);
        expect(result.title).to.equal(genMonograph.title);
-       expect(result.num).to.equal(data.num);
+       expect(result.num).to.equal(genMonograph.num);
+       var theme = result.theme_id;
+       var brand = result.brand_id;
+       expect(theme.id).to.equal(1);
+       expect(theme.name).to.equal('politica');
+       expect(brand.id).to.equal(1);
+       expect(brand.name).to.equal('SunRice');
+       done();
      });
    });
 
