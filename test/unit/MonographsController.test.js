@@ -126,5 +126,53 @@ describe("Monograph Controller Test", function(){
 
  });
 
+ describe("GET monograph by id",function(){
+   var genMonograph ={
+     id:1111,
+     position: 999,
+     title:"ToFind",
+     theme_id: 234,
+     brand_id:1,
+     num:554
+   }
+
+   before(function(done){
+     Monographs.create(genMonograph,function(err,result){
+      if(err) return done(err);
+      done();
+     });
+   });
+
+   after(function(done){
+     Monographs.destroy({id:genMonograph.id}).exec(function(err,monograph){
+       if(err) return done(err);
+       done();
+     });
+   });
+
+
+   it("Cant find monograph by bad request", function(done){
+     request.get('/monograph/id')
+     .expect(400)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equals("Bad request, send monograph id");
+       done();
+     });
+   });
+
+   it("Find monograph by Id ", function(done){
+     request.get('/monograph/'+genMonograph.id)
+     .expect(201)
+     .end(function(err,resp){
+       expect(err).to.not.exist;
+       var result = resp.body;
+       expect(result.position).to.equal(genMonograph.position);
+       expect(result.title).to.equal(genMonograph.title);
+       expect(result.num).to.equal(data.num);
+     });
+   });
+
+ });
 
 });
