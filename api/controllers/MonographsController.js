@@ -65,5 +65,7 @@ function isData2UpdateValid(data){
   return (data.hasOwnProperty('position') ||
         data.hasOwnProperty('title') ||
         data.hasOwnProperty('theme_id') ||
-        data.hasOwnProperty('brand_id'))
+        data.hasOwnProperty('brand_id') ||
+        data.hasOwnProperty('num')
+        )
 }
