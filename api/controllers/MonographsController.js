@@ -1,5 +1,3 @@
-//var MonographService = require('../services/MonographsService');
-
 module.exports = {
   list: function (req, res) {
     Monographs.query('Select * from monographs', function(err, result){
@@ -15,11 +13,12 @@ module.exports = {
       return res.end("Bad request, send monograph id")
     }
 
-    getMonographById(parseInt(req.param('id')), function(err, monograph){
-     if(err) throw new Error('Something bad happend', err);
-      res.statusCode=201;
-      res.json(monograph);
-   });
+    MonographsService.getMonographById(parseInt(req.param('id')),
+     function(err, monograph){
+       if(err) throw new Error('Something bad happend', err);
+        res.statusCode=201;
+        res.json(monograph);
+     });
   },
 
   save: function(req, res){
@@ -28,7 +27,7 @@ module.exports = {
     res.statusCode= 400;
     return res.end(body);
    }
-   saveValidMonograph(req.body, function(err, created){
+   MonographsService.saveValidMonograph(req.body, function(err, created){
      if(err) return new Error("Can't save Monograph ",err)
      res.statusCode = 201;
      return res.json(created);
@@ -42,49 +41,29 @@ module.exports = {
     return res.end(body);
   }
 
-  editMonographById(parseInt(req.param('id')),req.body,function(err,updated){
-    if(err) return new Errr("Cannot update register", err);
-    if(updated.length <= 0){
-      res.statusCode = 400;
-      return res.end('Cannot update register, does not exist');
-    }
-    res.statusCode = 201;
-    return res.json(updated);
-  });
+  MonographsService.editMonographById(parseInt(req.param('id')),req.body,
+    function(err,updated){
+      if(err) return new Errr("Cannot update register", err);
+      if(updated.length <= 0){
+        res.statusCode = 400;
+        return res.end('Cannot update register, does not exist');
+      }
+      res.statusCode = 201;
+      return res.json(updated);
+    });
  }
 
 };
 
 
-//TODO get out to service file
+// Validations
 function isValidMonograph(data){
   return (data.position && data.title && data.theme_id && data.brand_id);
 }
 
-function saveValidMonograph(data, callback){
-  Monographs.create(data).exec(function(err,created){
-    if(err) return callback(err);
-    callback(null,created);
-  });
-}
-
 function isData2UpdateValid(data){
-return (data.hasOwnProperty('position') ||
+  return (data.hasOwnProperty('position') ||
         data.hasOwnProperty('title') ||
         data.hasOwnProperty('theme_id') ||
         data.hasOwnProperty('brand_id'))
-}
-
-function editMonographById(id,data, callback){
-  Monographs.update({id:id},data).exec(function(err, updated){
-    if(err) return callback(err);
-    callback(null, updated);
-  });
-}
-
-function getMonographById(id, callback){
-  Monographs.findOne({id:id}).populateAll().exec(function(err, monograph){
-    if(err) return callback(err,null);
-    callback(null,monograph);
-  });
 }
