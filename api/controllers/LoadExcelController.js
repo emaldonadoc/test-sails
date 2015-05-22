@@ -8,12 +8,20 @@
 module.exports = {
 
 	load: function(req, res){
-		if(!req.body.path || res.body.path == "" ){
+		if(isPathValid(req.body)){
 			res.statusCode=400;
 			return res.end("Please send a valid excel path");
-
 		}
-		res.end();
+
+    LoadExcelService.readExcel(req.body.path,function(err, loaded){
+		 if(err) throw new Error('Something bad when load', err);
+     return res.json(loaded);
+		});
 	}
 
 };
+
+
+function isPathValid(body){
+	return !body.path || body.path == "";
+}
