@@ -7,7 +7,8 @@ describe("Load Excel Controller Test", function(){
     var readExcelFunction;
 
     before(function(done){
-      readExcelFunction = sinon.stub(LoadExcelService, 'readExcel', function(path,callback){
+      readExcelFunction = sinon.stub(LoadExcelService, 'readExcel',
+      function(path,callback){
         callback(null, {message:"Upload monographs success",loadTotal:200});
       })
       done();
