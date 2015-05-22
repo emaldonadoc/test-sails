@@ -16,7 +16,6 @@ describe("Monograph Controller Test", function(){
 
  describe("POST monograph",function(){
    after(function(done){
-     console.log("CLEAN DUMMY TEST DATA");
      Monographs.query("delete from monograph_test.monographs where id>=0;");
      done();
    });
@@ -41,7 +40,7 @@ describe("Monograph Controller Test", function(){
        num:1
      };
      request.post(service).send(monograph2save)
-     .expect(210)
+     .expect(201)
      .end(function(err, resp){
        expect(err).to.not.exist;
        var body = resp.body;
@@ -57,5 +56,130 @@ describe("Monograph Controller Test", function(){
 
  });
 
+ describe('PUT Update',function(){
+   before(function(done){
+     var data ={
+       id:99999,
+       position: 1,
+       title:"ToUpdate",
+       theme_id: 1,
+       brand_id:2,
+       num:1
+     };
+     Monographs.create(data,function(err,result){
+      if(err) return done(err);
+      done();
+     });
+   });
+
+   after(function(done){
+     Monographs.destroy({id:99999}).exec(function(err,monograph){
+       if(err) return done(err);
+       done();
+     });
+   });
+
+   it("Cant update monograph by bad request", function(done){
+     request.put('/monograph/id').send({position:33})
+     .expect(400)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equals("Bad request, send monograph id ");
+       done();
+     });
+   });
+
+   it("Cant update monograph with no data to update",function(done){
+     request.put('/monograph/99999').send({none:""})
+     .expect(400)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equals("Bad request, send monograph id ");
+       done();
+     });
+   });
+
+   it("Try 2 update a monograph that doesnt exist",function(done){
+     var data2Update = {position:2,theme_id:2,num:666};
+     request.put('/monograph/2').send(data2Update)
+     .expect(400)
+     .end(function(err, resp){
+       var error = resp.error;
+       expect(error.text).to.equal('Cannot update register, does not exist');
+       done();
+     });
+   });
+
+   it("Update monograph successful",function(done){
+     var data2Update = {position:2,theme_id:2,num:666};
+     request.put('/monograph/99999').send(data2Update)
+     .expect(201)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       var updated = resp.body[0];
+       expect(updated.position).to.equal(data2Update.position);
+       expect(updated.theme_id).to.equal(data2Update.theme_id);
+       expect(updated.num).to.equal(data2Update.num);
+       done();
+     });
+   });
+
+ });
+
+ describe("GET monograph by id",function(){
+   var genMonograph ={
+     id:1111,
+     position: 999,
+     title:"ToFind",
+     theme_id: 1,
+     brand_id:1,
+     num:554
+   }
+
+   before(function(done){
+     Monographs.create(genMonograph,function(err,result){
+      if(err) return done(err);
+      done();
+     });
+   });
+
+   after(function(done){
+     Monographs.destroy({id:genMonograph.id}).exec(function(err,monograph){
+       if(err) return done(err);
+       done();
+     });
+   });
+
+
+   it("Cant find monograph by bad request", function(done){
+     request.get('/monograph/id')
+     .expect(400)
+     .end(function(err, resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equals("Bad request, send monograph id");
+       done();
+     });
+   });
+
+   it("Find monograph by Id ", function(done){
+     request.get('/monograph/'+genMonograph.id)
+     .expect(201)
+     .end(function(err,resp){
+       expect(err).to.not.exist;
+       var result = resp.body;
+       expect(result.position).to.equal(genMonograph.position);
+       expect(result.title).to.equal(genMonograph.title);
+       expect(result.num).to.equal(genMonograph.num);
+       var theme = result.theme_id;
+       var brand = result.brand_id;
+       expect(theme.id).to.equal(1);
+       expect(theme.name).to.equal('politica');
+       expect(brand.id).to.equal(1);
+       expect(brand.name).to.equal('SunRice');
+       done();
+     });
+   });
+
+ });
 
 });
