@@ -161,9 +161,19 @@ describe("Monograph Controller Test", function(){
      });
    });
 
+   it("Find monograph by Id, but does not exist", function(done){
+     request.get('/monograph/'+131312312312)
+     .expect(404)
+     .end(function(err,resp){
+       expect(err).to.not.exist;
+       expect(resp.text).to.equal("Monograph not found");
+       done();
+     });
+   });
+
    it("Find monograph by Id ", function(done){
      request.get('/monograph/'+genMonograph.id)
-     .expect(201)
+     .expect(200)
      .end(function(err,resp){
        expect(err).to.not.exist;
        var result = resp.body;

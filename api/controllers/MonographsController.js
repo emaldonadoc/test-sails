@@ -16,8 +16,12 @@ module.exports = {
     MonographsService.getMonographById(parseInt(req.param('id')),
      function(err, monograph){
        if(err) throw new Error('Something bad happend', err);
-        res.statusCode=201;
-        res.json(monograph);
+       if(monograph == null || monograph.length > 0){
+         res.statusCode=404;
+         return res.end("Monograph not found");
+       }
+        res.statusCode=200;
+        return res.json(monograph);
      });
   },
 
