@@ -19,6 +19,10 @@ module.exports = {
 
   models: {
      connection: 'MysqlServerTest'
+   },
+
+   log: {
+      level: "debug"
    }
 
 };
