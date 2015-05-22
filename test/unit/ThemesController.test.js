@@ -45,6 +45,20 @@ describe("Themes Controller Test", function(){
 
    });
 
+  describe("GET one theme", function(){
+    it("Should bring one theme", function(done){
+      request.get("/theme/"+ 1)
+        .expect(200)
+        .end(function(err, resp) {
+          expect(err).to.not.exist;
+          var body = resp.body;
+          expect(body).to.exist;
+          expect(body.name).to.equal("politica");
+          done();
+        })
+    });
+  });
+
 
 
 });
