@@ -5,8 +5,7 @@ var excelExtentions = [".xlsx", ".xls"];
 var LoadExcelService ={
 
   readExcel:  function(pathExcel, callback){
-    var extname = path.extname(pathExcel)
-    if(!isPathNameValid())
+    if(!isPathNameValid(path.extname(pathExcel)))
       return callback({message: "No valid file"}, null);
 
     excel(pathExcel, function(err, data){
