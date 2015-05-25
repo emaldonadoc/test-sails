@@ -21,17 +21,17 @@ module.exports = {
   },
 
   showTheme: function (req, res) {
-    //chacaled from jr's code
     if (isNaN(req.param('id'))) {
       res.statusCode = 400;
       return res.end("Bad request, send monograph id")
     }
-    Themes.findOne({id: parseInt(req.param('id'))}).populateAll().exec(function (err, theme) {
-      if (err) return res.sender(err, 500);
+
+    show(parseInt(req.param('id')),function(err, theme){
+      if (err) return res.sender(err, 400);
       if (!theme) return res.send("theme " + id + " not found", 404);
       return res.json({theme: theme});
-
     });
+
   }
 
 };
@@ -44,5 +44,12 @@ function save(data, callback) {
   Themes.create(data).exec(function (err, created) {
     if (err) return callback(err);
     callback(null, created);
+  });
+}
+
+function show(id, callback) {
+  Themes.findOne({id: id}).populateAll().exec(function (err, theme) {
+    if(err) return callback(err,null);
+    callback(null,theme);
   });
 }
