@@ -26,7 +26,7 @@ module.exports = {
       res.statusCode = 400;
       return res.end("Bad request, send monograph id")
     }
-    Theme.findone({id: id}).populateAll().exec(function (err, theme) {
+    Theme.findone({id: parseInt(req.param('id'))}).populateAll().exec(function (err, theme) {
       if (err) return res.sender(err, 500);
       if (!theme) return res.send("theme " + id + " not found", 404);
       return res.json({theme: theme});
