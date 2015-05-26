@@ -32,6 +32,20 @@ module.exports = {
       return res.json({theme: theme});
     });
 
+  },
+
+  edit:function(req,res){
+    if (!isValidTheme(req.body)) {
+      var body = "Bad Request";
+      res.statusCode = 400;
+      return res.end(body);
+    }
+    Themes.update({id:id},data).exec(function(err, updated){
+      if(err) return callback(err);
+      callback(null, updated);
+    });
+
+
   }
 
 };

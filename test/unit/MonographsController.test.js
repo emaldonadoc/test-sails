@@ -173,7 +173,7 @@ describe("Monograph Controller Test", function(){
        var theme = result.theme_id;
        var brand = result.brand_id;
        expect(theme.id).to.equal(1);
-       expect(theme.name).to.equal('politica');
+       expect(theme.name).to.equal('ambiente');
        expect(brand.id).to.equal(1);
        expect(brand.name).to.equal('SunRice');
        done();
