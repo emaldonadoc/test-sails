@@ -2,11 +2,6 @@ require('sails-test-helper');
 
 describe("Load Excel Service Test", function(){
 
-  after(function(done){
-    sails.once('hook:orm:reloaded', done);
-    sails.emit('hook:orm:reload');
-  });
-
   it("No valid path",function(done){
     LoadExcelService.readExcel("/excel/data", function(err,data){
       expect(data).to.not.exist;

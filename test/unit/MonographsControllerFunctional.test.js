@@ -95,7 +95,7 @@ describe("Monograph Controller Functional Test", function(){
 
    it("Try 2 update a monograph that doesnt exist",function(done){
      var data2Update = {position:2,theme_id:2,num:666};
-     request.put('/monograph/2').send(data2Update)
+     request.put('/monograph/10283470123984702391847').send(data2Update)
      .expect(400)
      .end(function(err, resp){
        var error = resp.error;
