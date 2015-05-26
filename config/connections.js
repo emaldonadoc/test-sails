@@ -46,15 +46,6 @@ module.exports.connections = {
     user: 'root',
     password: '',
     database: 'monograph'
-  },
-
-
-  MysqlServerTest: {
-    adapter: 'sails-mysql',
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'monograph_test'
   }
 
   /***************************************************************************

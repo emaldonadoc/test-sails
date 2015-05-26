@@ -69,10 +69,8 @@ describe("Monograph Controller Functional Test", function(){
    });
 
    after(function(done){
-     Monographs.destroy({id:99999}).exec(function(err,monograph){
-       if(err) return done(err);
-       done();
-     });
+     sails.once('hook:orm:reloaded', done);
+     sails.emit('hook:orm:reload');
    });
 
    it("Cant update monograph by bad request", function(done){
@@ -124,7 +122,7 @@ describe("Monograph Controller Functional Test", function(){
 
  describe("GET monograph by id",function(){
    var genMonograph ={
-     id:1111,
+     id:100001,
      position: 999,
      title:"ToFind",
      theme_id: 1,
@@ -176,12 +174,6 @@ describe("Monograph Controller Functional Test", function(){
        expect(result.position).to.equal(genMonograph.position.toString());
        expect(result.title).to.equal(genMonograph.title);
        expect(result.num).to.equal(genMonograph.num.toString());
-       var theme = result.theme_id;
-       var brand = result.brand_id;
-       expect(theme.id).to.equal(1);
-       expect(theme.name).to.equal('ambiente');
-       expect(brand.id).to.equal(1);
-       expect(brand.name).to.equal('SunRice');
        done();
      });
    });
