@@ -1,6 +1,7 @@
 module.exports = {
+
   list: function (req, res) {
-    Themes.query('Select * from themes', function(err, result){
+    Themes.find({} ,function(err, result){
      if(err)
        throw new Error('something bad happened'+ err);
        return res.json({themes:result});

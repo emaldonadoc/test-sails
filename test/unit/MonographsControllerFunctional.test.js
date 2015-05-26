@@ -1,6 +1,6 @@
 require("sails-test-helper");
 
-describe("Monograph Controller Functional Test", function(){
+describe.skip("Monograph Controller Functional Test", function(){
 
  describe("GET Monographs list", function(){
   it("Should be successful", function(done){
@@ -15,10 +15,10 @@ describe("Monograph Controller Functional Test", function(){
  });
 
  describe("POST monograph",function(){
-   after(function(done){
-     Monographs.query("delete from monograph_test.monographs where id>=0;");
-     done();
-   });
+  // after(function(done){
+  //   Monographs.query("delete from monograph_test.monographs where id>=0;");
+  //   done();
+  // });
 
    var service = "/monographs";
    it("No save monograph by BAD REQUEST", function(done){

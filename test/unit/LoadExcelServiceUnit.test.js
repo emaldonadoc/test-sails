@@ -1,6 +1,6 @@
 require('sails-test-helper');
 
-describe("Load Excel Service Test", function(){
+describe.skip("Load Excel Service Test", function(){
 
   it("No valid path",function(done){
     LoadExcelService.readExcel("/excel/data", function(err,data){

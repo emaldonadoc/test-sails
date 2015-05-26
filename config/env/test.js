@@ -18,11 +18,11 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-     connection: 'localDiskDb'
+     connection: 'localDiskDb',
    },
-
+   migrate: 'drop',
    log: {
-      level: "debug"
+      level: "error"
    }
 
 };
