@@ -53,6 +53,7 @@ describe("Themes Controller Test", function(){
           expect(err).to.not.exist;
           var body = resp.body;
           expect(body).to.exist;
+          //expect(body.name).to.exist;
           expect(body.name).to.equal("politica");
           done();
         })

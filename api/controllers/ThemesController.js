@@ -29,7 +29,7 @@ module.exports = {
     show(parseInt(req.param('id')),function(err, theme){
       if (err) return res.sender(err, 400);
       if (!theme) return res.send("theme " + id + " not found", 404);
-      return res.json({theme: theme});
+      return res.json(theme);
     });
 
   },
