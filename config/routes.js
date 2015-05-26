@@ -41,7 +41,8 @@ module.exports.routes = {
   'GET /monographs': 'MonographsController.list',
   'POST /monographs': 'MonographsController.save',
   'PUT /monograph/:id' : 'MonographsController.edit',
-  'GET /monograph/:id' :'MonographsController.getOne'
+  'GET /monograph/:id' :'MonographsController.getOne',
+  'POST /load' : 'LoadExcelController.load'
 
   /***************************************************************************
   *                                                                          *

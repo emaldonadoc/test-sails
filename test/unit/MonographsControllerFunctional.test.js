@@ -1,6 +1,6 @@
 require("sails-test-helper");
 
-describe("Monograph Controller Test", function(){
+describe("Monograph Controller Functional Test", function(){
 
  describe("GET Monographs list", function(){
   it("Should be successful", function(done){
@@ -15,10 +15,6 @@ describe("Monograph Controller Test", function(){
  });
 
  describe("POST monograph",function(){
-   after(function(done){
-     Monographs.query("delete from monograph_test.monographs where id>=0;");
-     done();
-   });
 
    var service = "/monographs";
    it("No save monograph by BAD REQUEST", function(done){
@@ -35,7 +31,7 @@ describe("Monograph Controller Test", function(){
      var monograph2save={
        position: 1,
        title:"Test monograph",
-       theme_id: 1,
+       theme_id:1,
        brand_id:2,
        num:1
      };
@@ -45,7 +41,7 @@ describe("Monograph Controller Test", function(){
        expect(err).to.not.exist;
        var body = resp.body;
        expect(body).to.exist;
-       expect(body.position).to.equal(monograph2save.position);
+       expect(body.position).to.equal(monograph2save.position.toString());
        expect(body.title).to.equal(monograph2save.title);
        expect(body.theme_id).to.equal(monograph2save.theme_id);
        expect(body.brand_id).to.equal(monograph2save.brand_id);
@@ -73,10 +69,8 @@ describe("Monograph Controller Test", function(){
    });
 
    after(function(done){
-     Monographs.destroy({id:99999}).exec(function(err,monograph){
-       if(err) return done(err);
-       done();
-     });
+     sails.once('hook:orm:reloaded', done);
+     sails.emit('hook:orm:reload');
    });
 
    it("Cant update monograph by bad request", function(done){
@@ -101,7 +95,7 @@ describe("Monograph Controller Test", function(){
 
    it("Try 2 update a monograph that doesnt exist",function(done){
      var data2Update = {position:2,theme_id:2,num:666};
-     request.put('/monograph/2').send(data2Update)
+     request.put('/monograph/10283470123984702391847').send(data2Update)
      .expect(400)
      .end(function(err, resp){
        var error = resp.error;
@@ -117,9 +111,9 @@ describe("Monograph Controller Test", function(){
      .end(function(err, resp){
        expect(err).to.not.exist;
        var updated = resp.body[0];
-       expect(updated.position).to.equal(data2Update.position);
+       expect(updated.position).to.equal(data2Update.position.toString());
        expect(updated.theme_id).to.equal(data2Update.theme_id);
-       expect(updated.num).to.equal(data2Update.num);
+       expect(updated.num).to.equal(data2Update.num.toString());
        done();
      });
    });
@@ -128,7 +122,7 @@ describe("Monograph Controller Test", function(){
 
  describe("GET monograph by id",function(){
    var genMonograph ={
-     id:1111,
+     id:100001,
      position: 999,
      title:"ToFind",
      theme_id: 1,
@@ -177,15 +171,9 @@ describe("Monograph Controller Test", function(){
      .end(function(err,resp){
        expect(err).to.not.exist;
        var result = resp.body;
-       expect(result.position).to.equal(genMonograph.position);
+       expect(result.position).to.equal(genMonograph.position.toString());
        expect(result.title).to.equal(genMonograph.title);
-       expect(result.num).to.equal(genMonograph.num);
-       var theme = result.theme_id;
-       var brand = result.brand_id;
-       expect(theme.id).to.equal(1);
-       expect(theme.name).to.equal('politica');
-       expect(brand.id).to.equal(1);
-       expect(brand.name).to.equal('SunRice');
+       expect(result.num).to.equal(genMonograph.num.toString());
        done();
      });
    });
