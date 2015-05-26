@@ -9,14 +9,13 @@ module.exports = {
 
   attributes: {
     id: {primaryKey: true,autoIncrement: true,type: 'integer'},
-    position:{type:'integer',required:true},
-    num:{type:'integer', defaultsTo:0},
+    position:{type:'string',required:true},
+    num:{type:'string', defaultsTo:0},
     title:{type:'string',required:true},
 
     // Relationship with others tables
     theme_id:{
-      model:'themes',
-      required:true
+      model:'themes'
     },
     brand_id:{
       model:'brands'
