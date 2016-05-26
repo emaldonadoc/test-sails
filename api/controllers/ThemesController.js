@@ -4,7 +4,7 @@ module.exports = {
     Themes.find({} ,function(err, result){
      if(err)
        throw new Error('something bad happened'+ err);
-       return res.json({themes:result});
+       return res.json(result);
     });
   },
 
