@@ -26,7 +26,9 @@ module.exports = {
   },
 
   save: function(req, res){
-  if(!isValidMonograph(req.body)){
+    req.acceptsCharset('utf-8');
+    console.log(req.body);
+/*  if(!isValidMonograph(req.body)){
     var body = "Bad Request";
     res.statusCode= 400;
     return res.end(body);
@@ -35,7 +37,7 @@ module.exports = {
      if(err) return new Error("Can't save Monograph ",err)
      res.statusCode = 201;
      return res.json(created);
-   });
+   });*/
  },
 
  edit: function(req,res){
